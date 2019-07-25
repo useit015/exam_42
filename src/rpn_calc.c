@@ -76,9 +76,11 @@ int		ft_rpn_calc(char *s)
 		return 0;
 	while (*s)
 	{
-		if (ft_isdigit(*s))
+		if (ft_isdigit(*s) || (ft_isop(*s) && ft_isdigit(*(s + 1)))
 		{
 			stack[++i] = atoi(s);
+			if (ft_isop(*s))
+				s++;
 			while (ft_isdigit(*s))
 				s++;
 		}
