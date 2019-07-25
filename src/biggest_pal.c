@@ -6,17 +6,15 @@
 /*   By: useit015 <useit015@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/21 01:34:55 by useit015          #+#    #+#             */
-/*   Updated: 2019/07/21 02:05:16 by useit015         ###   ########.fr       */
+/*   Updated: 2019/07/22 00:41:24 by useit015         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 
-void	*ft_memset(void *b, int c, size_t len)
+void	ft_putchar(char c)
 {
-	for (size_t i = 0; i < len; i++)
-		((unsigned char*)b)[i] = c;
-	return (b);
+	write(1, &c, 1);
 }
 
 int		ft_strlen(char *s)
@@ -26,16 +24,18 @@ int		ft_strlen(char *s)
 	return i;
 }
 
-void	ft_putchar(char c)
+void	*ft_memset(void *b, int c, size_t len)
 {
-	write(1, &c, 1);
+	for (size_t i = 0; i < len; i++)
+		((unsigned char*)b)[i] = c;
+	return (b);
 }
 
 void	ft_palindrome(char *s)
 {
 	int len = ft_strlen(s);
 	char tab[len][len];
-	ft_memset(tab, 0, sizeof(tab));
+	(void)ft_memset(tab, 0, sizeof(tab));
 	for (int i = 0; i < len; i++)
 		tab[i][i] = 1;
 	int start = 0;

@@ -6,7 +6,7 @@
 /*   By: useit015 <useit015@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/04 21:22:04 by useit015          #+#    #+#             */
-/*   Updated: 2019/07/05 00:57:13 by useit015         ###   ########.fr       */
+/*   Updated: 2019/07/21 02:42:07 by useit015         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,15 +68,12 @@ int		ft_calc(int *stack, int i, char op)
 	return 1;
 }
 
-void	ft_rpn_calc(char *s)
+int		ft_rpn_calc(char *s)
 {
 	int i = -1;
 	int stack[1024] = {0};
 	if (!ft_valid(s))
-	{
-		printf("Error\n");
-		return;
-	}
+		return 0;
 	while (*s)
 	{
 		if (ft_isdigit(*s))
@@ -86,23 +83,18 @@ void	ft_rpn_calc(char *s)
 				s++;
 		}
 		else if (ft_isop(*s) && !ft_calc(stack, i--, *s))
-		{
-			printf("Error\n");
-			return;
-		}
+			return 0;
 		s++;
 	}
 	if (i)
-		printf("Error\n");
-	else
-		printf("%d\n", stack[0]);
+		return 0;
+	printf("%d\n", stack[0]);
+	return 1;
 }
 
 int		main(int ac, char **av)
 {
-	if (ac == 2)
-		ft_rpn_calc(av[1]);
-	else
+	if (ac != 2 || !ft_rpn_calc(av[1]))
 		printf("Error\n");
 	return 0;
 }

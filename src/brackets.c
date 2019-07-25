@@ -6,7 +6,7 @@
 /*   By: useit015 <useit015@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/04 20:50:01 by useit015          #+#    #+#             */
-/*   Updated: 2019/07/15 03:27:32 by useit015         ###   ########.fr       */
+/*   Updated: 2019/07/22 00:35:45 by useit015         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int		ft_match(char c, char d)
 
 int		ft_brackets(char *s)
 {
-	int stack[1024] = {0};
+	char stack[1024] = {0};
 	int i = -1;
 	while (*s)
 	{
@@ -61,8 +61,7 @@ int		ft_brackets(char *s)
 		{
 			if (i < 0 || !ft_match(stack[i], *s))
 				return 0;
-			else
-				stack[i--] = 0;
+			stack[i--] = 0;
 		}
 		s++;
 	}

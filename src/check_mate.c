@@ -6,7 +6,7 @@
 /*   By: useit015 <useit015@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 03:33:29 by useit015          #+#    #+#             */
-/*   Updated: 2019/07/05 04:14:12 by useit015         ###   ########.fr       */
+/*   Updated: 2019/07/22 00:56:22 by useit015         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,38 +86,38 @@ int		rook(char **b, int size, int x, int y, char c)
 
 int		bishop(char **b, int size, int x, int y, char c)
 {
-	for (int i = y + 1; i < size; i++)
+	for (int i = 1; i + y < size; i++)
+		for (int j = 1; j + x < size; j++)
+			if (i == j && piece(b[i + y][j + x]))
+			{
+				if (b[i + y][j + x] == c)
+					return 1;
+				else
+					break;
+			}
+	for (int i = 1; i + y < size; i++)
+		for (int j = 1; x - j >= 0; j++)
+			if (i == j && piece(b[i + y][x - j]))
+			{
+				if (b[i + y][x - j] == c)
+					return 1;
+				else
+					break;
+			}
+	for (int i = 1; y - i >= 0; i++)
 		for (int j = x + 1; j < size; j++)
-			if (piece(b[i][j]))
+			if (i == j && piece(b[y - i][j + x]))
 			{
-				if (b[i][j] == c)
+				if (b[y - i][j + x] == c)
 					return 1;
 				else
 					break;
 			}
-	for (int i = y + 1; i < size; i++)
-		for (int j = x - 1; j >= 0; j--)
-			if (piece(b[i][j]))
+	for (int i = 1; y - i >= 0; i++)
+		for (int j = 1; x - j >= 0; j++)
+			if (i == j && piece(b[y - i][x - j]))
 			{
-				if (b[i][j] == c)
-					return 1;
-				else
-					break;
-			}
-	for (int i = y - 1; i >= 0; i--)
-		for (int j = x + 1; j < size; j++)
-			if (piece(b[i][j]))
-			{
-				if (b[i][j] == c)
-					return 1;
-				else
-					break;
-			}
-	for (int i = y - 1; i >= 0; i--)
-		for (int j = x - 1; j >= 0; j--)
-			if (piece(b[i][j]))
-			{
-				if (b[i][j] == c)
+				if (b[y - i][x - j] == c)
 					return 1;
 				else
 					break;
