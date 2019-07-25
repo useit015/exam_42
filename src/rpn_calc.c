@@ -6,7 +6,7 @@
 /*   By: useit015 <useit015@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/04 21:22:04 by useit015          #+#    #+#             */
-/*   Updated: 2019/07/21 02:42:07 by useit015         ###   ########.fr       */
+/*   Updated: 2019/07/25 05:20:35 by useit015         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int		ft_rpn_calc(char *s)
 		return 0;
 	while (*s)
 	{
-		if (ft_isdigit(*s) || (ft_isop(*s) && ft_isdigit(*(s + 1)))
+		if (ft_isdigit(*s) || (ft_isop(*s) && ft_isdigit(*(s + 1))))
 		{
 			stack[++i] = atoi(s);
 			if (ft_isop(*s))
