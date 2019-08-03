@@ -6,7 +6,7 @@
 /*   By: useit015 <useit015@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/21 01:34:55 by useit015          #+#    #+#             */
-/*   Updated: 2019/08/03 04:40:42 by useit015         ###   ########.fr       */
+/*   Updated: 2019/08/03 04:55:55 by useit015         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,21 @@ void	*ft_memset(void *b, int c, size_t len)
 	return (b);
 }
 
-void	expand_palindrome(int high, int low, int len, int *start, int *pal, char *s)
+void	expand_palindrome(int index, int len, int *start, int *pal, char *s)
 {
-	int newLen;
-	while (--low >= 0 && ++high < len && s[low] == s[high])
+	int newLen, high, low;
+	for (int i = 0; i < 2; i++)
 	{
-		newLen = high - low + 1;
-		if (newLen > *pal)
+		low = index;
+		high = index - i;
+		while (--low >= 0 && ++high < len && s[low] == s[high])
 		{
-			*start = low;
-			*pal = newLen;
+			newLen = high - low + 1;
+			if (newLen > *pal)
+			{
+				*start = low;
+				*pal = newLen;
+			}
 		}
 	}
 }
@@ -52,10 +57,7 @@ void	ft_palindrome(char *s)
 	int start = 0;
 	int len = ft_strlen(s);
 	for (int i = 1; i < len; ++i)
-	{
-		expand_palindrome(i, i, len, &start, &pal, s);
-		expand_palindrome(i - 1, i, len, &start, &pal, s);
-	}
+		expand_palindrome(i, len, &start, &pal, s);
 	write(1, s + start, pal);
 }
 
