@@ -6,11 +6,12 @@
 /*   By: useit015 <useit015@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/21 01:34:55 by useit015          #+#    #+#             */
-/*   Updated: 2019/07/22 00:41:24 by useit015         ###   ########.fr       */
+/*   Updated: 2019/08/03 04:40:42 by useit015         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
+#include <stdio.h>
 
 void	ft_putchar(char c)
 {
@@ -31,36 +32,30 @@ void	*ft_memset(void *b, int c, size_t len)
 	return (b);
 }
 
+void	expand_palindrome(int high, int low, int len, int *start, int *pal, char *s)
+{
+	int newLen;
+	while (--low >= 0 && ++high < len && s[low] == s[high])
+	{
+		newLen = high - low + 1;
+		if (newLen > *pal)
+		{
+			*start = low;
+			*pal = newLen;
+		}
+	}
+}
+
 void	ft_palindrome(char *s)
 {
-	int len = ft_strlen(s);
-	char tab[len][len];
-	(void)ft_memset(tab, 0, sizeof(tab));
-	for (int i = 0; i < len; i++)
-		tab[i][i] = 1;
-	int start = 0;
 	int pal = 1;
-	for (int i = 0; i < len - 1; i++)
-		if (s[i] == s[i + 1])
-		{
-			tab[i][i + 1] = 1;
-			start = i;
-			pal = 2;
-		}
-	for (int k = 3; k <= len; k++)
-		for (int i = 0; i <= len - k; i++)
-		{
-			int j = i + k - 1;
-			if (tab[i + 1][j - 1] && s[i] == s[j])
-			{
-				tab[i][j] = 1;
-				if (k > pal)
-				{
-					start = i;
-					pal = k;
-				}
-			}
-		}
+	int start = 0;
+	int len = ft_strlen(s);
+	for (int i = 1; i < len; ++i)
+	{
+		expand_palindrome(i, i, len, &start, &pal, s);
+		expand_palindrome(i - 1, i, len, &start, &pal, s);
+	}
 	write(1, s + start, pal);
 }
 
